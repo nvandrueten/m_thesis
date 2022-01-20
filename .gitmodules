@@ -1,0 +1,18 @@
+[submodule "core/bsc"]
+	path = core/bsc
+	url = https://github.com/B-Lang-org/bsc
+[submodule "core/riscv-openocd"]
+	path = core/riscv-openocd
+	url = https://github.com/riscv/riscv-openocd.git
+[submodule "core/riscv-gnu-toolchain"]
+	path = core/riscv-gnu-toolchain
+	url = https://github.com/riscv/riscv-gnu-toolchain
+[submodule "core/c-class"]
+	path = core/c-class
+	url = https://gitlab.com/shaktiproject/cores/c-class.git
+[submodule "core/riscv-isa-sim"]
+	path = core/riscv-isa-sim
+	url = https://github.com/riscv/riscv-isa-sim.git
+[submodule "core/mod-spike"]
+	path = core/mod-spike
+	url = https://gitlab.com/shaktiproject/tools/mod-spike.git

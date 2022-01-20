@@ -1,0 +1,6 @@
+core/c-class
+core/riscv-gnu-toolchain
+core/bsc
+core/mod-spike
+core/riscv-isa-sim
+core/riscv-openocd

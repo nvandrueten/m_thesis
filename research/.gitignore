@@ -1,0 +1,8 @@
+*.vcd
+*.txt
+side-channel/
+.ipynb_checkpoints/
+__pycache__/
+results/
+figures/
+config.ini

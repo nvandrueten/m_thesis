@@ -1,0 +1,5 @@
+*.riscv
+*.elf
+*.txt
+*.hex
+*.dump

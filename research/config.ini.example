@@ -1,0 +1,70 @@
+[DEFAULT]
+# yes: if you are using a jupyter notebook.
+# no: otherwise.
+NOTEBOOK = yes
+
+# Nr of vcd files.
+NR_OF_VCD_FILES = 16
+
+# Nr of cores you want this script to use.
+NR_OF_CORES = 2
+
+# File format of the vcd files: {} is a placeholder for identifier.
+VCD_FILE_FORMAT = round_{}.vcd
+
+# Basepath of vcd file location.
+# VCD_FILE_BASEPATH
+#   |-- aes
+#        |-----tvla_fixed
+#                   |--------round_0.vcd
+#         | round_0.vcd
+#         | round_1.vcd
+#         | ...
+#         | aes_sbox1_oracle.txt
+#          | ...
+#   |-------- des
+#
+#
+#
+#   |-------- des2
+#
+#
+#   |-------- sha3
+
+VCD_FILE_BASEPATH = /media/niels/Elements/research/vcd_files/
+
+# Method used (svf, tvla)
+METHOD = svf
+
+# Compute tvla fixed run
+TVLA_FIXED = no
+
+# Algorithm used (aes, des)
+ALGORITHM = aes
+
+# Storing result of compute_traces.py here. {} is a placeholder for date.
+SIDECHANNEL_TRACES_PATH_FORMAT = /media/niels/Elements/research/traces/{}
+
+# Reading traces from here during compute_hd.py.
+SIDECHANNEL_TRACES_PATH = /media/niels/Elements/research/traces/2021_07_15__11_39_00
+
+# Storing result of compute_hd.py here. {} is a placeholder for date.
+HD_PATH_FORMAT = /media/niels/Elements/research/HDs/{}
+
+# Reading HD values from here during svf.
+HD_PATH = /home/niels/2021_07_15__11_46_58
+
+# Storing results to here during svf/tvla.
+RESULT_PATH_FORMAT = /media/niels/Elements/research/results/{}
+
+# Timestamp values to select start and end of interesting timestamps.
+# Can use getvcdlength.py to get the timestamp_end of a vcd file.
+TIMESTAMP_START = 0
+TIMESTAMP_END = 414260
+
+# timestamp step value in vcd file.
+TIMESTAMP_STEPS = 5
+
+# yes: all modules from VCD_FILE_FORMAT_0.vcd
+# no: research modules in compute_traces:get_research_modules().
+all_modules = no

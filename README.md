@@ -18,12 +18,12 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 export RISCV="/home/niels/riscv/"
 export PATH="$RISCV/bin:$PATH"
-export SHAKTI_HOME="/home/niels/gitrepos/param/core/c-class"
+export SHAKTI_HOME="/home/niels/m_thesis/core/c-class"
 ```
 
 Next, a lot of packages are needed for the project:
 ```bash
-$ sudo apt-getinstall  -y  make  build-essential  libssl-dev  zlib1g-dev  libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev git ghc libghc-regex-compat-dev libghc-syb-dev libghc-old-time-dev libghc-split-dev  ghc-prof  libghc-regex-compat-prof  libghc-syb-proflibghc-old-time-prof  libghc-split-prof  gperf  autoconf  tcl-devflex  bison  iverilog  libtool  autoconf  automake  autotools-devcurl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev swig python-dev texinfo python3-pip
+$ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev git ghc libghc-regex-compat-dev libghc-syb-dev libghc-old-time-dev libghc-split-dev ghc-prof libghc-regex-compat-prof libghc-syb-prof libghc-old-time-prof libghc-split-prof gperf autoconf tcl-dev flex bison iverilog libtool autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev swig python-dev texinfo python3-pip
 ```
 
 

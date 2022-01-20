@@ -3,12 +3,15 @@
 Techniques for exploring leaky components on a SoC
 
 ## Installation
-Clone this repository and its submodules:
+Before we can compile the C-Class core, we have to install libraries for the core.  The following steps show how to install these required libraries.
+Start by cloning our repository and its submodules with:
 ```bash
-$ git clone --recurse-submodules https://gitlab.science.ru.nl/kmiteloudi/param.git
+$ git clone --recurse-submodules https://github.com/nvandrueten/m_thesis.git
 ```
+This will take a while, because this also clones the submodules which are quite large.
 
-Edit this and add to your `.bashrc`:
+
+While it is cloning our repository, edit this to your liking and paste it into your `.bashrc`:
 ```bash
 export PATH="/home/niels/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
@@ -18,35 +21,47 @@ export PATH="$RISCV/bin:$PATH"
 export SHAKTI_HOME="/home/niels/gitrepos/param/core/c-class"
 ```
 
-### Python Environment
+Next, a lot of packages are needed for the project:
 ```bash
-$ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
-    libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-    xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
-$ curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
-
-$ pyenv install 3.7.0
-$ pyenv virtualenv 3.7.0 riscvenv
+$ sudo apt-getinstall  -y  make  build-essential  libssl-dev  zlib1g-dev  libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev git ghc libghc-regex-compat-dev libghc-syb-dev libghc-old-time-dev libghc-split-dev  ghc-prof  libghc-regex-compat-prof  libghc-syb-proflibghc-old-time-prof  libghc-split-prof  gperf  autoconf  tcl-devflex  bison  iverilog  libtool  autoconf  automake  autotools-devcurl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev swig python-dev texinfo python3-pip
 ```
 
-### DTC
+
+### Python Environment
+Install pyenv to create a virtual environment for Python
 ```bash
-$ sudo apt-get install flex bison
+$ curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
+```
+Create a virtual environment with Python version 3.7.0 for our core,lets call the virtual environment:  ‘riscvenv’:
+```bash
+$ pyenv install 3.7.0
+$ pyenv virtualenv 3.7.0 riscvenv
+$ pyenv activate riscvenv
+```
+The  last  command  activates  the  riscvenv  virtual  environment.  Together with the PATH variables in your `.bashrc` file,  we can use use the last command.
+
+### DTC
+Now install DTC for RISC-V in the $RISCV directory:
+```bash
 $ cd core/dtc-1.4.7/
 $ make NO_PYTHON=1 PREFIX=$RISCV
 $ sudo make install NO_PYTHON=1 PREFIX=$RISCV
 ```
 
 ### BSC
+We also need to install Blue Spec Compiler (BSC):
 ```bash
 $ cd core/bsc/
-$ sudo apt-get install ghc libghc-regex-compat-dev libghc-syb-dev libghc-old-time-dev libghc-split-dev ghc-prof libghc-regex-compat-prof libghc-syb-prof libghc-old-time-prof libghc-split-prof gperf autoconf tcl-dev flex bison iverilog
 $ make PREFIX=$RISCV
 $ sudo make install PREFIX=$RISCV
+```
+The following command is optional and requires valgrind: `$sudo apt-getinstall valgrind`.
+```
 $ make check
 ```
 
 ### Verilator (Latest version)
+Next, we install Verilator.  There is a Verilator package available with `$sudo apt-get install verilator', but this package is outdated and we need a newer version so we need to manually compile and install Verilator with Github repository:
 ```bash
 $ git clone https://github.com/verilator/verilator
 $ cd verilator
@@ -58,8 +73,8 @@ $ sudo make install
 
 
 ### RISCV Openocd:
+Now we install RISC-V OpenOCD:
 ```bash
-$ sudo apt-get install libtool
 $ cd core/riscv-openocd
 $ ./bootstrap 
 $ ./configure PREFIX=$RISCV
@@ -68,14 +83,15 @@ $ sudo make install PREFIX=$RISCV
 ```
 
 ### RISCV GNU Toolchain:
+This step will take some time where we install RISC-V GNU toolchain which installs the RISC-V compiler to compile C programs for a RISC-V processor:
 ```bash
 $ cd core/riscv-gnu-toolchain
-$ sudo apt-get install autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
 $ ./configure --prefix=$RISCV
 $ sudo make
 ```
 
 ### RISCV-isa-sim + RISCV-isa-sim patch: 
+The  last  thing  we  have  to  install  before  we  can  compile  the  c-class core, is a riscv-isa-sim modified for the C-Class core:
 ```bash
 $ cd core/mod-spike                                 
 $ git checkout bump-to-latest       
@@ -90,10 +106,15 @@ $ sudo make install
 ```
 
 ## Build C-Class core
+Now we are able to compile the C-Class core. First go to the c-class directory, activate the riscvenv Python virtual environment and install the required Python libraries with the following commands:
 ```bash
 $ cd core/c-class
 $ pyenv activate riscvenv
 $ pip install -U -r requirements.txt
+```
+
+In the root directory of the git repository, we have a vcddump.yaml configuration file. This configuration file configures the C-Class core. Most configurations are default, but we have enabled the verilator configuration trace configuration flag to enable VCD dumps during simulation. With the following command, we configure the core with this configuration file:
+```bash
 $ python -m configure.main -ispec sample_config/default.yaml
 ```
 
